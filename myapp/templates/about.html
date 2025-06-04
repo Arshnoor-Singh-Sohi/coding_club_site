@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Our University Coding Club</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <!-- SAME NAVIGATION MENU AS home.html FOR CONSISTENCY -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- PAGE HEADING -->
+    <header>
+        <h1>About the University Coding Club</h1>
+    </header>
+
+    <!-- DETAILED INFORMATION -->
+    <section class="history">
+        <p>
+            Founded in 2018 by a group of enthusiastic students, 
+            the University Coding Club has grown into a vibrant community 
+            of coders, developers, and tech-enthusiasts. Our mission is to 
+            foster collaboration, skill sharing, and innovation through 
+            various events and activities.
+        </p>
+        <p>
+            Over the years, we've hosted numerous workshops, hackathons, 
+            hack-nights, and career panels. Our alumni have gone on to 
+            work at top tech companies, startups, and research labs. 
+            The club is open to all majors—if you have an interest in 
+            coding, there's a place for you here.
+        </p>
+    </section>
+
+    <!-- TIMELINE AS AN ORDERED LIST -->
+    <section class="timeline">
+        <h2>Our Milestones</h2>
+        <ol>
+            <li><strong>September 2018:</strong> Club founded by five CS majors.</li>
+            <li><strong>January 2019:</strong> First hackathon with 50 participants.</li>
+            <li><strong>April 2020:</strong> Introduced virtual workshops during pandemic.</li>
+            <li><strong>June 2021:</strong> Launched mentorship program pairing seniors with freshmen.</li>
+            <li><strong>October 2022:</strong> Organized county-wide coding competition.</li>
+            <li><strong>February 2024:</strong> Partnered with industry sponsors for internship pipelines.</li>
+        </ol>
+    </section>
+
+    <!-- ADDITIONAL IMAGES IF DESIRED -->
+    <section class="media">
+        <h2>Snapshots of Our Journey</h2>
+        <div class="image-gallery">
+            <img src="{% static 'founders.jpg' %}" alt="Founders of the club in 2018">
+            <img src="{% static 'hackathon_snapshot.jpg' %}" alt="Participants at hackathon 2022">
+        </div>
+    </section>
+</body>
+</html>

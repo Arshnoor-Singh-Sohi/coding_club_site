@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Club Home</title>
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Welcome to the University Coding Club</h1>
+    </header>
+
+    <section class="intro">
+        <p>
+            The University Coding Club is a student-run organization dedicated to promoting
+            coding and software development skills among students of all levels.
+            Whether you’re a beginner curious about coding or an experienced developer
+            looking to collaborate, our club offers workshops, hackathons, and social events
+            to help you grow.
+        </p>
+    </section>
+
+    <section class="benefits">
+        <h2>Why Join Our Club?</h2>
+        <ul>
+            <li>Hands-on coding workshops led by senior students</li>
+            <li>Monthly hackathons with prizes and mentorship</li>
+            <li>Guest talks from industry professionals</li>
+            <li>Study groups for computer science courses</li>
+            <li>Networking events and social gatherings</li>
+        </ul>
+    </section>
+
+    <section class="images">
+        <h2>Our Activities</h2>
+        <div class="image-gallery">
+            <img src="{% static 'coding_workshop.jpg' %}" alt="Students coding together">
+            <img src="{% static 'hackathon_event.png' %}" alt="Hackathon participants">
+        </div>
+    </section>
+</body>
+</html>
