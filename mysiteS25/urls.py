@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from myapp import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -26,6 +26,10 @@ urlpatterns = [
     path('', views.home_page, name='homepage'),
     path('home/', views.home_page, name='home'),
     path('about/', views.about_page, name='about'),
+
+    # NEW: Include the URLs from your views1.py
+    # This means all URLs starting with 'myapp/' will be handled by myapp/urls1.py
+    path('myapp/', include('myapp.urls1')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
