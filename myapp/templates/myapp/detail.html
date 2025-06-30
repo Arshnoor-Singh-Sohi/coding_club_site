@@ -1,0 +1,17 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %} {{ book.title }} {% endblock %}
+
+{% block myhdg %} Book Details {% endblock %}
+
+{% block body_block %}
+    <h2>{{ book.title }}</h2>
+    <p><strong>Price: </strong> ${{ book.price }} </p>
+    <p><strong>Publisher: </strong> {{book.publisher.name}} </p>
+    <p><strong>Category: </strong> {{book.get_catgory_display}} </p>
+    <p><strong>Pages: </strong> {{book.num_pages}} </p>
+
+    {% if book.description %}
+        <p><strong>Description: </strong> {{book.description}} </p>
+    {% endif %}
+{% endblock %}

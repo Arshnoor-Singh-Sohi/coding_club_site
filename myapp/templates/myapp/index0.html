@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eBook Website</title>
+</head>
+<body>
+    {% if booklist %}
+        <h2>List of Books</h2>
+        <ol>
+            {% for book in booklist %}
+                <li>
+                    <a href="{% url 'myapp:detail' book.id %}"> {{ book.title }} </a>
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <strong>There are no books available</strong>
+    {% endif %}
+    <p><a href="{% url 'myapp:about' %}">About page</a></p>
+</body>
+</html>
