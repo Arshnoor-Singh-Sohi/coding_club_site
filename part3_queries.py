@@ -68,7 +68,7 @@ def run_all_queries():
     for member in avenue_ab_members:
         print(f"   - {member.username}: {member.first_name} {member.last_name}, {member.address}, {member.province}")
     print(f"   Total found: {avenue_ab_members.count()}\n")
-    
+
     print("e. Members that have borrowed the book 'A New World':")
     new_world_borrowers = Member.objects.filter(borrowed_books__title='A New World')
     for member in new_world_borrowers:
