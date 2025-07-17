@@ -1,0 +1,84 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Place Order{% endblock %}
+
+{% block myhdg %}Place a New Order{% endblock %}
+
+{% block body_block %}
+    <h2>Order Books</h2>
+    <p>Select the books you want to order, choose a member, and specify the order type:</p>
+    
+    <!-- Order form -->
+    <form action="{% url 'myapp:place_order' %}" method="post">
+        
+        <!-- CSRF token for security -->
+        {% csrf_token %}
+        
+        <!-- This renders all ModelForm fields automatically -->
+        {{ form.as_p }}
+        
+        <!-- Submit button -->
+        <input type="submit" value="Place Order" />
+        
+    </form>
+    
+    <div class="form-help">
+        <h3>How to use this form:</h3>
+        <ul>
+            <li><strong>Books:</strong> Select one or more books using the checkboxes</li>
+            <li><strong>Member name:</strong> Choose which member is placing this order</li>
+            <li><strong>Order type:</strong> 
+                <ul>
+                    <li><strong>Purchase:</strong> Member buys the books</li>
+                    <li><strong>Borrow:</strong> Member borrows the books (they will be added to borrowed books list)</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    
+    <style>
+        /* Make the form more readable */
+        form p {
+            margin-bottom: 20px;
+        }
+        
+        /* Style checkboxes and radio buttons */
+        input[type="checkbox"], input[type="radio"] {
+            margin-right: 8px;
+        }
+        
+        /* Style the field lists */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            padding: 5px;
+        }
+        
+        /* Style the submit button */
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        .form-help {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border-left: 4px solid #17a2b8;
+        }
+    </style>
+{% endblock %}

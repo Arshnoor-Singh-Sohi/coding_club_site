@@ -1,0 +1,32 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Find Books{% endblock %}
+
+{% block myhdg %}Search for Books{% endblock %}
+
+{% block body_block %}
+    <h2>Book Search</h2>
+    <p>Enter your name and select a category to find books:</p>
+    
+    <!-- Search form exactly as specified in assignment -->
+    <form action="{% url 'myapp:findbooks' %}" method="post">
+        
+        <!-- CSRF token for security -->
+        {% csrf_token %}
+        
+        <!-- This renders all form fields as paragraphs -->
+        {{ form.as_p }}
+        
+        <!-- Submit button with name and value as specified -->
+        <input type="submit" name="submit1" value="Find Books" />
+        
+    </form>
+    
+    <div class="form-info">
+        <h3>How to use this form:</h3>
+        <ul>
+            <li><strong>Your Name:</strong> Optional - enter your first name for a personalized experience</li>
+            <li><strong>Category:</strong> Required - select one category to search for books</li>
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,185 @@
+
+{% extends 'myapp/base.html' %}
+
+{% block title %}Order Confirmation{% endblock %}
+
+{% block myhdg %}Order Placed Successfully!{% endblock %}
+
+{% block body_block %}
+    <div class="order-confirmation">
+        <h2>✅ Your Order Has Been Placed</h2>
+        
+        <div class="order-details">
+            <h3>Order Information</h3>
+            <table class="order-table">
+                <tr>
+                    <td><strong>Order ID:</strong></td>
+                    <td>{{ order.id }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Member:</strong></td>
+                    <td>{{ order.member.first_name }} {{ order.member.last_name }} ({{ order.member.username }})</td>
+                </tr>
+                <tr>
+                    <td><strong>Order Type:</strong></td>
+                    <td>{{ order.get_order_type_display }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Order Date:</strong></td>
+                    <td>{{ order.order_date }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Items:</strong></td>
+                    <td>{{ order.books.count }}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="books-ordered">
+            <h3>Books in This Order</h3>
+            <div class="book-list">
+                {% for book in order.books.all %}
+                    <div class="book-item">
+                        <div class="book-info">
+                            <strong>{{ book.title }}</strong>
+                            <span class="price">${{ book.price }}</span>
+                        </div>
+                        <div class="book-details">
+                            <small>
+                                Publisher: {{ book.publisher.name }} | 
+                                Category: {{ book.get_category_display }} |
+                                Pages: {{ book.num_pages }}
+                            </small>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Special message for borrow orders -->
+        {% if order.order_type == 1 %}
+            <div class="borrow-notice">
+                <h3>📚 Borrowing Information</h3>
+                <p><strong>Good news!</strong> These books have been automatically added to {{ order.member.first_name }}'s borrowed books list.</p>
+                <p>Remember to return them by the due date!</p>
+            </div>
+        {% else %}
+            <div class="purchase-notice">
+                <h3>💳 Purchase Information</h3>
+                <p><strong>Thank you for your purchase!</strong> These books now belong to {{ order.member.first_name }}.</p>
+            </div>
+        {% endif %}
+        
+        <!-- Total price calculation -->
+        <div class="order-total">
+            <h3>Order Summary</h3>
+            {% with total=0 %}
+                {% for book in order.books.all %}
+                    {% widthratio book.price 1 1 as book_price %}
+                {% endfor %}
+            {% endwith %}
+            <p>You have ordered {{ order.books.count }} book{{ order.books.count|pluralize }}.</p>
+        </div>
+    </div>
+    
+    <!-- Navigation links -->
+    <div class="navigation">
+        <p>
+            <a href="{% url 'myapp:place_order' %}">Place Another Order</a> | 
+            <a href="{% url 'myapp:index' %}">Back to Book List</a>
+        </p>
+    </div>
+    
+    <style>
+        .order-confirmation {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .order-table td {
+            padding: 8px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .order-table td:first-child {
+            width: 150px;
+        }
+        
+        .book-list {
+            background-color: white;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        
+        .book-item {
+            background-color: #f8f9fa;
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .book-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .price {
+            background-color: #e7f3ff;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            color: #0056b3;
+        }
+        
+        .borrow-notice {
+            background-color: #cce5ff;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            margin-top: 20px;
+        }
+        
+        .purchase-notice {
+            background-color: #d1ecf1;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #17a2b8;
+            margin-top: 20px;
+        }
+        
+        .order-total {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+            margin-top: 20px;
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .navigation a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}

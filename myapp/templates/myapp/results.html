@@ -1,0 +1,131 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block myhdg %}Book Search Results{% endblock %}
+
+{% block body_block %}
+    <!-- Display greeting with name if provided -->
+    {% if name %}
+        <h2>Hello {{ name }}!</h2>
+    {% else %}
+        <h2>Search Results</h2>
+    {% endif %}
+    
+    <!-- PART 3: Display search criteria -->
+    <div class="search-criteria">
+        <h3>Search Criteria:</h3>
+        <ul>
+            {% if category %}
+                <li><strong>Category:</strong> {{ category }}</li>
+            {% else %}
+                <li><strong>Category:</strong> All categories</li>
+            {% endif %}
+            <li><strong>Maximum Price:</strong> ${{ max_price }}</li>
+        </ul>
+    </div>
+    
+    <!-- Display the list of books in booklist with suitable message -->
+    {% if booklist %}
+        <div class="search-results">
+            <h3>Here are the books we found for you:</h3>
+            {% if category %}
+                <p>Books in {{ category }} category with price ≤ ${{ max_price }}:</p>
+            {% else %}
+                <p>Books from all categories with price ≤ ${{ max_price }}:</p>
+            {% endif %}
+            
+            <ul class="book-list">
+                {% for book in booklist %}
+                    <li class="book-item">
+                        <strong>{{ book.title }}</strong> - ${{ book.price }}
+                        <br>
+                        <small>
+                            Publisher: {{ book.publisher.name }} | 
+                            Category: {{ book.get_category_display }} |
+                            Pages: {{ book.num_pages }}
+                        </small>
+                        {% if book.description %}
+                            <br>
+                            <em>{{ book.description|truncatewords:20 }}</em>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            
+            <p class="book-count">
+                <strong>Total books found: {{ booklist.count }}</strong>
+            </p>
+        </div>
+    {% else %}
+        <div class="no-results">
+            <h3>No books found</h3>
+            {% if category %}
+                <p>Sorry, there are no books in {{ category }} category with price ≤ ${{ max_price }}.</p>
+                <p>Try:</p>
+                <ul>
+                    <li>Increasing your maximum price</li>
+                    <li>Searching in a different category</li>
+                    <li>Searching all categories (leave category unselected)</li>
+                </ul>
+            {% else %}
+                <p>Sorry, there are no books with price ≤ ${{ max_price }}.</p>
+                <p>Try increasing your maximum price to see more books.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+    
+    <!-- Navigation links -->
+    <div class="navigation">
+        <p>
+            <a href="{% url 'myapp:findbooks' %}">Search Again</a> | 
+            <a href="{% url 'myapp:index' %}">Back to Book List</a>
+        </p>
+    </div>
+    
+    <style>
+        .search-criteria {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .search-criteria ul {
+            margin-bottom: 0;
+        }
+        
+        .book-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .book-item {
+            background-color: #f8f9fa;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .book-count {
+            background-color: #e7f3ff;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .no-results {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .navigation {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+{% endblock %}

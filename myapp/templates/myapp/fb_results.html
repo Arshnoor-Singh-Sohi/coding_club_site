@@ -1,0 +1,30 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %} Feedback Results {% endblock %}
+
+{% block myhdg %}Thankyou for your Feedback!{% endblock %}
+
+{% block body_block %}
+    <div class="feedback-results">
+        <h2>Your Preference</h2>
+        <p>You have chosen <strong>{{ choice }}</strong></p>
+        <div class="next-steps">
+            <h3>What's Next?</h3>
+            <p>Based on your preference, you can: </p>
+            {% if 'borrow' in choice %}
+                <ul>
+                    <li>Browse our available books for borrowing</li>
+                    <li>Check your membership status</li>
+                    <li>View borrowing policies</li>
+                </ul>
+            {% elif 'purchase' in choice %}
+                <ul>
+                    <li>Browse our books for sale</li>
+                    <li>View pricing information</li>
+                    <li>Check payment options</li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    <p><a href="{% url 'myapp:index' %}">Return to Book List</a></p>
+{% endblock %}

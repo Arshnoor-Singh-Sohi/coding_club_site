@@ -1,0 +1,18 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}Feedback Form{% endblock %}
+
+{% block myhdg %}Give Us Your Feedback{% endblock %}
+
+{% block body_block %}
+    <h2>Book Preference Feedback</h2>
+    <p>Please tell us whether you prefer to borrow or purchase books: </p>
+
+    <form action="{% url 'myapp:feedback1' %}" method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input type="submit" name="submit2" value="Done">
+    </form>
+{% endblock %}
